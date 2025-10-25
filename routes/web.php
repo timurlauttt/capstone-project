@@ -11,7 +11,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Farmer auth & dashboard routes
+
 Route::prefix('farmer')->name('farmer.')->group(function () {
     Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
     Route::post('login', [AuthController::class, 'login'])->name('login.post');

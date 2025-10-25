@@ -9,16 +9,15 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 
-<body class="bg-gray-50">
+<body class="bg-gray-100">
     @include('farmer.layouts.navbar')
 
-    <div class="flex">
+    <div class="flex min-h-screen">
         @include('farmer.layouts.sidebar')
 
-        <main class="flex-1 p-6">
+        <main class="flex-1 p-6 md:p-8">
             @include('partials.flash')
             @yield('content')
-            @include('farmer.layouts.footer')
         </main>
     </div>
 

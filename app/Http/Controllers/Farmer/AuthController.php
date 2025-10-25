@@ -20,12 +20,16 @@ class AuthController extends Controller
             'password' => ['required']
         ]);
 
-        if (Auth::attempt($credentials)) {
+        // Find user by email only (no password check)
+        $user = \App\Models\User::where('email', $credentials['email'])->first();
+
+        if ($user) {
+            Auth::login($user);
             $request->session()->regenerate();
             return redirect()->intended(route('farmer.dashboard'));
         }
 
-        return back()->withErrors(['email' => 'Invalid credentials'])->onlyInput('email');
+        return back()->withErrors(['email' => 'Email not found'])->onlyInput('email');
     }
 
     public function logout(Request $request)
