@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Farmer;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\ProductImage;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -21,17 +22,20 @@ class ProductController extends Controller
 
     public function create()
     {
-        return view('farmer.products.create');
+        $categories = Category::all();
+        return view('farmer.products.create', compact('categories'));
     }
 
     public function store(Request $request)
     {
         $data = $request->validate([
             'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'price' => 'nullable|numeric',
+            'category_id' => 'required|exists:categories,id',
+            'description' => 'required|string',
+            'price' => 'required|numeric|min:0',
             'unit' => 'nullable|string|max:50',
-            'stock' => 'nullable|integer',
+            'stock' => 'required|integer|min:0',
+            'status' => 'required|in:available,unavailable,preorder',
             'images.*' => 'image|max:5120'
         ]);
 
@@ -39,11 +43,12 @@ class ProductController extends Controller
         $product = $user->products()->create([
             'title' => $data['title'],
             'slug' => Str::slug($data['title']).'-'.Str::random(6),
-            'description' => $data['description'] ?? null,
-            'price' => $data['price'] ?? null,
-            'unit' => $data['unit'] ?? null,
-            'stock' => $data['stock'] ?? 0,
-            'status' => 'active'
+            'category_id' => $data['category_id'],
+            'description' => $data['description'],
+            'price' => $data['price'],
+            'unit' => $data['unit'] ?? 'batang',
+            'stock' => $data['stock'],
+            'status' => $data['status']
         ]);
 
         // handle images - store directly in public/product-images
@@ -66,13 +71,14 @@ class ProductController extends Controller
             }
         }
 
-        return redirect()->route('farmer.products.index')->with('success', 'Product created');
+        return redirect()->route('farmer.products.index')->with('success', 'Product berhasil ditambahkan');
     }
 
     public function edit(Product $product)
     {
         $this->authorize('update', $product);
-        return view('farmer.products.edit', compact('product'));
+        $categories = Category::all();
+        return view('farmer.products.edit', compact('product', 'categories'));
     }
 
     public function update(Request $request, Product $product)
@@ -81,19 +87,23 @@ class ProductController extends Controller
 
         $data = $request->validate([
             'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'price' => 'nullable|numeric',
+            'category_id' => 'required|exists:categories,id',
+            'description' => 'required|string',
+            'price' => 'required|numeric|min:0',
             'unit' => 'nullable|string|max:50',
-            'stock' => 'nullable|integer',
+            'stock' => 'required|integer|min:0',
+            'status' => 'required|in:available,unavailable,preorder',
             'images.*' => 'image|max:5120'
         ]);
 
         $product->update([
             'title' => $data['title'],
-            'description' => $data['description'] ?? null,
-            'price' => $data['price'] ?? null,
-            'unit' => $data['unit'] ?? null,
-            'stock' => $data['stock'] ?? 0,
+            'category_id' => $data['category_id'],
+            'description' => $data['description'],
+            'price' => $data['price'],
+            'unit' => $data['unit'] ?? 'batang',
+            'stock' => $data['stock'],
+            'status' => $data['status']
         ]);
 
         // handle removal of selected existing images
@@ -125,7 +135,7 @@ class ProductController extends Controller
             }
         }
 
-        return redirect()->route('farmer.products.index')->with('success', 'Product updated');
+        return redirect()->route('farmer.products.index')->with('success', 'Product berhasil diperbarui');
     }
 
     public function destroy(Product $product)
@@ -140,6 +150,18 @@ class ProductController extends Controller
             $img->delete();
         }
         $product->delete();
-        return redirect()->route('farmer.products.index')->with('success', 'Product deleted');
+        return redirect()->route('farmer.products.index')->with('success', 'Product berhasil dihapus');
+    }
+
+    public function toggleVisibility(Product $product)
+    {
+        $this->authorize('update', $product);
+        
+        $product->is_visible = !$product->is_visible;
+        $product->save();
+
+        $status = $product->is_visible ? 'ditampilkan' : 'disembunyikan';
+        
+        return redirect()->route('farmer.products.index')->with('success', "Produk berhasil {$status}");
     }
 }

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->decimal('price', 12, 2)->nullable();
             $table->string('unit')->nullable();
             $table->integer('stock')->default(0);
-            $table->enum('status', ['draft', 'active'])->default('draft');
+            $table->enum('status', ['available', 'unavailable', 'preorder'])->default('available');
             $table->timestamps();
         });
     }

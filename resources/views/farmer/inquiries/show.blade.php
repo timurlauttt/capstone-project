@@ -11,8 +11,7 @@
         </div>
     </div>
 
-    @include('partials.flash')
-
+    
     <div class="bg-white rounded shadow p-4 mb-4">
         <h2 class="font-medium">Customer</h2>
         <p>{{ $inquiry->name }} — {{ $inquiry->phone }} / {{ $inquiry->email }}</p>

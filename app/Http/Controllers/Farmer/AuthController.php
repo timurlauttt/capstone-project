@@ -26,7 +26,7 @@ class AuthController extends Controller
         if ($user) {
             Auth::login($user);
             $request->session()->regenerate();
-            return redirect()->intended(route('farmer.dashboard'));
+            return redirect()->intended(route('farmer.dashboard'))->with('success', 'Login berhasil');
         }
 
         return back()->withErrors(['email' => 'Email not found'])->onlyInput('email');
@@ -37,6 +37,6 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/');
+        return redirect('login')->with('success', 'Logout berhasil');
     }
 }
