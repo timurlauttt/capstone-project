@@ -11,6 +11,22 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/menu', function () {
+    return view('menu_product');
+})->name('menu.products');
+
+Route::get('/menu/buah', function () {
+    return view('menu.buah');
+})->name('menu.buah');
+
+Route::get('/menu/bunga', function () {
+    return view('menu.bunga');
+})->name('menu.bunga');
+
+Route::get('/menu/kayu', function () {
+    return view('menu.kayu');
+})->name('menu.kayu');
+
 Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('login', [AuthController::class, 'login'])->name('login.post');
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
