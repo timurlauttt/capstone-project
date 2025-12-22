@@ -15,6 +15,10 @@ Route::get('/menu', function () {
     return view('menu_product');
 })->name('menu.products');
 
+Route::get('/tentang', function () {
+    return view('tentang');
+})->name('tentang');
+
 Route::get('/menu/buah', function () {
     return view('menu.buah');
 })->name('menu.buah');
