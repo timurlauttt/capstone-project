@@ -3,25 +3,7 @@
 
 @section('content')
 
-    <section class="relative pt-16 pb-20">
-        {{-- Background Image --}}
-        <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('{{ asset('images/produk.jpeg') }}');">
-        </div>
-
-        {{-- Overlay --}}
-        <div class="absolute inset-0 bg-black/50"></div>
-
-        {{-- Content --}}
-        <div class="relative max-w-7xl mx-auto px-6 text-center">
-            <h2 class="text-4xl font-bold text-white mb-3">
-                Koleksi Kami
-            </h2>
-            <p class="text-gray-200 text-lg max-w-2xl mx-auto">
-                Temukan berbagai bibit tanaman untuk memperindah taman rumahmu.
-            </p>
-        </div>
-    </section>
-
+  
 
     @php
         $categories = [
