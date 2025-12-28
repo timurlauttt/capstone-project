@@ -60,9 +60,12 @@
                                     {{ $product['desc'] ?? 'Deskripsi produk belum tersedia.' }}
                                 </p>
 
-                                <span class="font-bold text-green-600">
-                                    {{ $product['price'] ?? 'Rp0' }} /batang
-                                </span>
+                                <div class="flex justify-between items-center">
+                                    <span class="font-bold text-green-600">
+                                        {{ $product['price'] ?? 'Rp0' }}
+                                    </span>
+                                </div>
+
                             </div>
                         </div>
                     @endforeach

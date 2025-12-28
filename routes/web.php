@@ -27,6 +27,7 @@ Route::get('/', function () {
                 'price' => 'Rp' . number_format($p->price, 0, ',', '.'),
                 'desc' => $p->description,
                 'image' => $imageUrl,
+                'stock' => $p->stock,
             ];
         })->toArray();
 
