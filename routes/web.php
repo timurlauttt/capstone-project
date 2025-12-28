@@ -7,9 +7,55 @@ use App\Http\Controllers\Farmer\ProductController;
 use App\Http\Controllers\Farmer\InquiryController;
 
 
+use App\Models\Category;
+use App\Models\Product;
+
 Route::get('/', function () {
-    return view('welcome');
+    // Build categories array expected by the product-section component
+    $categories = [];
+
+    $allCategories = Category::all();
+    foreach ($allCategories as $cat) {
+        // Load up to 6 products per category for preview
+        $products = Product::where('category_id', $cat->id)->where('is_visible', 1)->take(6)->get();
+
+        $productsArray = $products->map(function ($p) {
+            // Try to get first image path, otherwise fallback to sample
+            $img = $p->images()->first();
+            $imageUrl = $img ? asset($img->path) : asset('images/sample-product.jpg');
+
+            return [
+                'name' => $p->title,
+                'price' => 'Rp' . number_format($p->price, 0, ',', '.'),
+                'desc' => $p->description,
+                'image' => $imageUrl,
+            ];
+        })->toArray();
+
+        $categories[] = [
+            'name' => $cat->name,
+            // route as [name, param] so component can generate dynamic links
+            'route' => ['menu.category', $cat->slug],
+            'slug' => $cat->slug,
+            'products' => $productsArray,
+        ];
+    }
+
+    return view('welcome', compact('categories'));
 });
+
+// Dynamic category page: show all products for a given category slug
+Route::get('/menu/{slug}', function ($slug) {
+    $category = Category::where('slug', $slug)->firstOrFail();
+
+    // Paginate 10 products per page
+    $products = Product::where('category_id', $category->id)
+        ->where('is_visible', 1)
+        ->with('images')
+        ->paginate(10);
+
+    return view('menu.category', compact('category', 'products'));
+})->name('menu.category');
 
 Route::get('/menu', function () {
     return view('menu_product');
@@ -19,16 +65,17 @@ Route::get('/tentang', function () {
     return view('tentang');
 })->name('tentang');
 
+// Legacy static menu routes now redirect to dynamic category route
 Route::get('/menu/buah', function () {
-    return view('menu.buah');
+    return redirect()->route('menu.category', ['slug' => 'buah']);
 })->name('menu.buah');
 
 Route::get('/menu/bunga', function () {
-    return view('menu.bunga');
+    return redirect()->route('menu.category', ['slug' => 'bunga']);
 })->name('menu.bunga');
 
 Route::get('/menu/kayu', function () {
-    return view('menu.kayu');
+    return redirect()->route('menu.category', ['slug' => 'kayu']);
 })->name('menu.kayu');
 
 Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');

@@ -14,31 +14,21 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
+        // Create two main categories requested by the user
         $categories = [
             [
-                'name' => 'Pohon Pelindung',
-                'slug' => 'pohon-pelindung',
+                'name' => 'Kayu',
+                'slug' => 'kayu',
             ],
             [
-                'name' => 'Pohon Buah',
-                'slug' => 'pohon-buah',
-            ],
-            [
-                'name' => 'Tanaman Hias',
-                'slug' => 'tanaman-hias',
-            ],
-            [
-                'name' => 'Pohon Produktif',
-                'slug' => 'pohon-produktif',
-            ],
-            [
-                'name' => 'Tanaman Obat',
-                'slug' => 'tanaman-obat',
+                'name' => 'Buah',
+                'slug' => 'buah',
             ],
         ];
 
         foreach ($categories as $category) {
-            Category::create($category);
+            // Use firstOrCreate to avoid duplication when re-running seeder
+            Category::firstOrCreate(['slug' => $category['slug']], $category);
         }
     }
 }

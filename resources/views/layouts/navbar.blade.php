@@ -14,14 +14,9 @@
         <div class="flex items-center justify-between h-16">
             <!-- Left: Logo -->
             <div class="flex items-center">
-                <a href="/" class="flex items-center space-x-3">
-                    <!-- simple leaf icon using SVG -->
-                    {{-- <svg class="h-16 w-16 text-green-600" viewBox="0 0 24 24" fill="currentColor"
-                        xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path d="M2 12C2 7.58 5.58 4 10 4c0 0-1 4-1 8s1 8 1 8C5.58 20 2 16.42 2 12z" />
-                        <path d="M22 12c0 4.42-3.58 8-8 8 0 0 1-4 1-8s-1-8-1-8c4.42 0 8 3.58 8 8z" opacity="0.9" />
-                    </svg> --}}
+                <a href="/" class="flex items-center space-x-2">
                     <img src="/images/logo.png" alt="" class="h-16 w-16">
+                    <span class="text-xl font-semibold text-gray-800">Roflereo Iterum</span>
                 </a>
             </div>
 

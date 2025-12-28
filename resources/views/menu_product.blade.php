@@ -9,7 +9,7 @@
         $categories = [
             [
                 'name' => 'Bibit Bunga',
-                'route' => 'menu.bunga',
+                'route' => ['menu.category', 'bunga'],
                 'products' => [
                     [
                         'name' => 'Tehebogu',
@@ -33,7 +33,7 @@
             ],
             [
                 'name' => 'Bibit Pohon Buah',
-                'route' => 'menu.buah',
+                'route' => ['menu.category', 'buah'],
                 'products' => [
                     [
                         'name' => 'Sneakers Off-White',
@@ -57,7 +57,7 @@
             ],
             [
                 'name' => 'Bibit Pohon Kayu',
-                'route' => 'menu.kayu',
+                'route' => ['menu.category', 'kayu'],
                 'products' => [
                     [
                         'name' => 'Sneakers Off-White',

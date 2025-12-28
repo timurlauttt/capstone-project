@@ -36,7 +36,7 @@
                     {{-- Description --}}
                     <p class="text-gray-600 leading-relaxed mb-6">
                         Kami adalah perusahaan pembibitan tanaman yang berlokasi di
-                        <strong>Sokaraja, Jawa Tengah</strong>, berdiri sejak tahun 2015.
+                        <strong>Desa Petir,Kecamatan Kalibagor, Kabupaten Banyumas, Jawa Tengah</strong>, berdiri sejak tahun 2015.
                         Kami fokus menyediakan bibit unggulan yang cocok dengan iklim
                         Indonesia dan mendukung penghijauan berkelanjutan.
                     </p>

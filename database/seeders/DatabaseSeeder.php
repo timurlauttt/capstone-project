@@ -18,11 +18,18 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
         ]);
 
-        // Create test user
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-            'role' => 'farmer',
+        // Create test user (farmer) if not exists
+        if (!User::where('email', 'test@example.com')->exists()) {
+            User::factory()->create([
+                'name' => 'Test User',
+                'email' => 'test@example.com',
+                'role' => 'farmer',
+            ]);
+        }
+
+        // Seed products based on the provided list
+        $this->call([
+            ProductSeeder::class,
         ]);
     }
 }
