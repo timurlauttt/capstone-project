@@ -15,7 +15,7 @@
             <!-- Left: Logo -->
             <div class="flex items-center">
                 <a href="/" class="flex items-center space-x-2">
-                    <img src="/images/logo.png" alt="" class="h-16 w-16">
+                    <img src="/images/logo1.png" alt="" class="h-16 w-16">
                     <span class="text-xl font-semibold text-gray-800">Roflereo Iterum</span>
                 </a>
             </div>
@@ -37,6 +37,11 @@
                     <a href="#tentangSection" id="nav-tentangSection"
                         class="nav-link px-3 py-2 rounded-md font-medium text-gray-700 hover:bg-green-500 hover:text-white transition-colors duration-200">
                         Tentang
+                    </a>
+
+                    <a href="#faqSection" id="nav-faqSection"
+                        class="nav-link px-3 py-2 rounded-md font-medium text-gray-700 hover:bg-green-500 hover:text-white transition-colors duration-200">
+                        FAQ
                     </a>
                 </div>
 
@@ -71,6 +76,11 @@
             <a href="#tentangSection" id="mobile-nav-tentangSection"
                 class="nav-link block px-3 py-2 rounded-md font-medium text-gray-700 hover:bg-green-500 hover:text-white">
                 Tentang
+            </a>
+
+            <a href="#faqSection" id="mobile-nav-faqSection"
+                class="nav-link block px-3 py-2 rounded-md font-medium text-gray-700 hover:bg-green-500 hover:text-white">
+                FAQ
             </a>
         </div>
     </div>

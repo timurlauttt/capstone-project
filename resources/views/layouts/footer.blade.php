@@ -23,7 +23,7 @@
                             <path
                                 d="M7 2C4.243 2 2 4.243 2 7v10c0 2.757 2.243 5 5 5h10c2.757 0 5-2.243 5-5V7c0-2.757-2.243-5-5-5H7zm10 2a3 3 0 013 3v10a3 3 0 01-3 3H7a3 3 0 01-3-3V7a3 3 0 013-3h10zm-5 3a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6zm4.5-.75a.75.75 0 110 1.5.75.75 0 010-1.5z" />
                         </svg>
-                        <span class="break-words">@refloreoiterum</span>
+                        <span class="break-words">refloreoiterum</span>
                     </a>
                     <a href="https://www.facebook.com/" target="_blank"
                         class="text-gray-200 text-sm hover:text-green-400 transition flex items-center gap-2">
@@ -31,7 +31,7 @@
                             <path
                                 d="M22 12.07C22 6.48 17.52 2 11.93 2S2 6.48 2 12.07c0 5.02 3.66 9.18 8.44 9.93v-7.03H8.08v-2.9h2.36V9.41c0-2.34 1.4-3.64 3.54-3.64 1.02 0 2.08.18 2.08.18v2.29h-1.17c-1.15 0-1.51.72-1.51 1.46v1.75h2.57l-.41 2.9h-2.16v7.03C18.34 21.25 22 17.09 22 12.07z" />
                         </svg>
-                        <span class="break-words">@refloreoiterum</span>
+                        <span class="break-words">refloreoiterum</span>
                     </a>
                 </div>
             </div>
@@ -64,7 +64,8 @@
                     </p>
                     <div class="w-full h-40 md:h-56 rounded-lg overflow-hidden border border-white/20">
                         <iframe class="w-full h-full" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-                            src="https://www.google.com/maps?q=-7.462611,109.309639&output=embed">
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d494.5886820929842!2d109.30939035716094!3d-7.462611!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zN8KwMjcnNDUuNCJTIDEwOcKwMTgnMzQuNyJF!5e1!3m2!1sen!2sid!4v1735000000000!5m2!1sen!2sid"
+                            style="border:0;" allowfullscreen="">
                         </iframe>
                     </div>
                 </div>
@@ -76,9 +77,16 @@
         <div class="border-t border-white/20 mt-8 md:mt-12 pt-6 md:pt-8">
             <div class="flex flex-col md:flex-row items-center text-center justify-center">
                 <p class="text-gray-200 text-sm">
-                    Roflereo Iterum© 2025. All rights reserved.
+                    Roflereo Iterum© 2025.
                 </p>
             </div>
         </div>
     </div>
 </footer>
+<div class="mx-8 md:mx-32 p-2 md:p-2 rounded-lg">
+    <div>
+        <p class="text-xs md:text-sm text-start">
+            powered by : <span><br></span> Kelompok 4 Capstone Project Sistem Informasi Telkom University Purwokerto 2025.
+        </p>
+    </div>
+</div>

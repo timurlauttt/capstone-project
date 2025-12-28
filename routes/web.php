@@ -16,11 +16,9 @@ Route::get('/', function () {
 
     $allCategories = Category::all();
     foreach ($allCategories as $cat) {
-        // Load up to 6 products per category for preview
         $products = Product::where('category_id', $cat->id)->where('is_visible', 1)->take(6)->get();
 
         $productsArray = $products->map(function ($p) {
-            // Try to get first image path, otherwise fallback to sample
             $img = $p->images()->first();
             $imageUrl = $img ? asset($img->path) : asset('images/sample-product.jpg');
 
@@ -52,7 +50,7 @@ Route::get('/menu/{slug}', function ($slug) {
     $products = Product::where('category_id', $category->id)
         ->where('is_visible', 1)
         ->with('images')
-        ->paginate(10);
+        ->paginate(9);
 
     return view('menu.category', compact('category', 'products'));
 })->name('menu.category');

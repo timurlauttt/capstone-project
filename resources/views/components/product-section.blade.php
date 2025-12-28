@@ -2,15 +2,15 @@
 
 <section id="produkSection" class="bg-gray-50 py-16">
     <div class="max-w-7xl mx-auto px-6">
-        <h2 class="text-3xl font-bold text-gray-800 mb-10 text-center">
+        <h2 class="text-xl md:text-3xl font-bold text-gray-800 mb-10 text-center">
             Katalog Produk
         </h2>
 
         @foreach ($categories as $category)
             <div class="mb-12">
                 <div class="flex justify-between items-center mb-6">
-                    <h3 class="text-2xl font-semibold text-gray-800">
-                        {{ $category['name'] }}
+                    <h3 class="text-lg md:text-2xl font-semibold text-gray-800">
+                        Bibit {{ $category['name'] }}
                     </h3>
 
                     @php
@@ -25,7 +25,7 @@
                         }
                     @endphp
                     <a href="{{ $link }}"
-                       class="text-green-600 hover:text-green-700 font-medium">
+                       class="text-sm md:text-base text-green-600 hover:text-green-700 font-medium">
                         Lihat semua →
                     </a>
                 </div>
@@ -41,8 +41,8 @@
 
                             <div class="p-4">
                                 <div class="flex justify-between items-center mb-2">
-                                    <h4 class="font-semibold text-lg">
-                                        {{ $product['name'] }}
+                                    <h4 class="font-semibold text-base md:text-lg">
+                                       Bibit {{ $product['name'] }}
                                     </h4>
                                     
                                     <!-- WhatsApp Button -->
@@ -61,7 +61,7 @@
                                 </p>
 
                                 <span class="font-bold text-green-600">
-                                    {{ $product['price'] ?? 'Rp0' }}
+                                    {{ $product['price'] ?? 'Rp0' }} /batang
                                 </span>
                             </div>
                         </div>
