@@ -56,7 +56,7 @@
                                     </a>
                                 </div>
                                 
-                                <p class="text-gray-500 text-sm mb-3">
+                                <p class="text-gray-500 text-sm mb-3">ph
                                     {{ $product['desc'] ?? 'Deskripsi produk belum tersedia.' }}
                                 </p>
 

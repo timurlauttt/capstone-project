@@ -9,11 +9,13 @@ class ProductPolicy
 {
     public function update(User $user, Product $product)
     {
-        return $user->id === $product->user_id;
+        // Allow if user is the owner OR user is a farmer role
+        return $user->id === $product->user_id || $user->role === 'farmer';
     }
 
     public function delete(User $user, Product $product)
     {
-        return $user->id === $product->user_id;
+        // Allow if user is the owner OR user is a farmer role
+        return $user->id === $product->user_id || $user->role === 'farmer';
     }
 }
