@@ -188,5 +188,8 @@ Kelompok 4 :
 2. Risnawati Sinaga (2211103100)
 3. Andi Syafar Ilham (2211103046)
 
+## UI/UX Design Figma:
+https://www.figma.com/design/2WCf3gnt2juqhe5v8tRWCh/CAPSTONE?node-id=65-689&p=f&t=n1wFfi8bTesV93L8-0
+
 ## License
 This project is proprietary software developed for Refloreo Iterum UMKM.
