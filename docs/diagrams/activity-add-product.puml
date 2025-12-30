@@ -1,0 +1,63 @@
+@startuml
+start
+:Farmer membuka /farmer/login;
+:Input email dan password;
+
+if (Kredensial valid?) then (yes)
+  :Login berhasil;
+  :D    MRedirect ke /farmer/dashboard;
+else (no)
+  :Tampilkan error message;
+  stop
+endif
+
+:Lihat Dashboard;
+:Klik menu "Products";
+:Tampilkan list produk dengan pagination;
+:Klik button "Tambah Produk";
+:Buka form tambah produk;
+
+partition "Isi Form Produk" {
+  :Input Judul Produk;
+  :Pilih Kategori (dropdown);
+  :Input Deskripsi;
+  :Input Harga (numeric);
+  :Input Unit (default: batang);https://telkomuniversityofficial.sharepoint.com/:w:/r/sites/CapstoneProjectKelompok4/_layouts/15/Doc2.aspx?action=edit&sourcedoc=%7Bdf53ca4b-5c6e-40fd-8781-97dea9b69f37%7D&wdOrigin=TEAMS-WEB.teamsSdk_ns.rwc&wdExp=TEAMS-TREATMENT&wdhostclicktime=1761122606279&web=1
+  :Input Stok (numeric);
+  :Pilih Status (available/unavailable/preorder);
+  :Upload Gambar Produk (multiple);
+  note right
+    - Max 5MB per file
+    - Auto resize ke 1200x800
+    - Disimpan di public/product-images
+  end note
+}
+
+:Klik button "Simpan";
+
+if (Validasi berhasil?) then (yes)
+  :Generate slug dari title + random(6);
+  :Simpan data produk ke database;
+  :user_id = Auth::user()->id;
+  
+  fork
+    :Process dan simpan gambar;
+    :Resize gambar ke 1200x800;
+    :Generate filename random(12);
+    :Simpan ke public/product-images;
+    :Simpan path ke product_images table;
+  fork again
+    :Set default unit = "batang" jika kosong;
+    :Set is_visible = false (default);
+  end fork
+  
+  :Flash success message;
+  :Redirect ke /farmer/products;
+  :Tampilkan list produk terupdate;
+  stop
+else (no)
+  :Tampilkan validation error;
+  :Tetap di form dengan old input;
+  stop
+endif
+@enduml

@@ -1,0 +1,66 @@
+@startuml
+start
+:Customer mengakses website;
+:Tampilkan Landing Page;
+:Lihat Hero Section;
+
+if (Ingin lihat produk?) then (yes)
+  :Scroll ke Product Section;
+  :Tampilkan katalog produk by kategori;
+  
+  if (Ingin lihat semua produk kategori?) then (yes)
+    :Klik "Lihat Semua";
+    :Redirect ke /menu/{slug};
+    :Tampilkan produk dengan pagination;
+    
+    if (Ada produk yang menarik?) then (yes)
+      :Lihat detail produk (nama, deskripsi, harga, stok);
+      if (Ingin pesan?) then (yes)
+        :Klik button WhatsApp di card produk;
+        :Buka WhatsApp dengan template message;
+        :Chat dengan Pak Harmoko;
+        stop
+      else (no)
+      endif
+    else (no)
+      if (Halaman berikutnya?) then (yes)
+        :Klik pagination;
+        :Load produk halaman berikutnya;
+      else (no)
+      endif
+    endif
+  else (no)
+  endif
+  
+else (no)
+endif
+
+if (Ingin tahu tentang perusahaan?) then (yes)
+  :Scroll ke Section Tentang;
+  :Baca informasi perusahaan;
+  
+  if (Ingin konsultasi?) then (yes)
+    :Klik button "Hubungi Kami";
+    :Buka WhatsApp;
+    :Chat dengan admin;
+    stop
+  else (no)
+  endif
+else (no)
+endif
+
+if (Ada pertanyaan?) then (yes)
+  :Scroll ke FAQ Section;
+  :Klik accordion FAQ;
+  :Baca jawaban;
+else (no)
+endif
+
+if (Perlu scroll ke atas?) then (yes)
+  :Klik floating "Back to Top" button;
+  :Smooth scroll ke atas;
+else (no)
+endif
+
+stop
+@enduml

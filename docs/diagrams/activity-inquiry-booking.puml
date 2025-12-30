@@ -1,0 +1,185 @@
+@startuml
+title Activity Diagram Pencatatan Booking/Pre-Order\n(Inquiry System sebagai Pencatatan Transaksi)
+
+start
+:Admin/Farmer membuka /farmer/login;
+:Input email dan password;
+
+if (Kredensial valid?) then (yes)
+  :Login berhasil;
+  :Redirect ke /farmer/dashboard;
+else (no)
+  :Tampilkan error message;
+  stop
+endif
+
+:Lihat Dashboard;
+:Klik menu "Inquiries" atau "Booking";
+:Tampilkan list booking/inquiry dengan pagination;
+
+note right
+  Inquiry = Booking/Pre-Order System
+  Berisi data pemesanan dari customer
+end note
+
+if (Ingin tambah booking baru?) then (yes)
+  :Klik button "Tambah Transaksi/Booking";
+  :Buka form tambah inquiry;
+  
+  partition "Isi Form Booking/Pre-Order" {
+    :Pilih Produk dari dropdown;
+    note right
+      Hanya produk dengan:
+      - status = available
+      - is_visible = true
+    end note
+    :Input Nama Customer;
+    :Input Email Customer;
+    :Input Nomor Telepon Customer;
+    :Input Quantity/Jumlah Pesanan;
+    :Input Pesan/Catatan (optional);
+    :Pilih Status Pembayaran;
+    note right
+      Status:
+      - paid (Lunas)
+      - unpaid (Belum Bayar)
+      - partial (Bayar Sebagian)
+    end note
+  }
+  
+  :Klik button "Simpan";
+  
+  if (Validasi berhasil?) then (yes)
+    :Simpan data inquiry/booking ke database;
+    :Flash success message: "Transaksi berhasil ditambahkan";
+    :Redirect ke /farmer/inquiries;
+    :Tampilkan list booking terupdate;
+    stop
+  else (no)
+    :Tampilkan validation error;
+    :Tetap di form dengan old input;
+    stop
+  endif
+  
+else (no)
+  if (Ingin lihat detail booking?) then (yes)
+    :Klik button "Detail" pada inquiry;
+    :Tampilkan detail booking/inquiry;
+    note right
+      Detail yang ditampilkan:
+      - ID Booking
+      - Produk yang dipesan
+      - Nama customer
+      - Email customer
+      - Nomor telepon
+      - Quantity
+      - Pesan/catatan
+      - Status pembayaran
+      - Tanggal dibuat
+    end note
+    
+    if (Ingin update status pembayaran?) then (yes)
+      :Klik "Update Status";
+      :Pilih status baru (paid/unpaid/partial);
+      :Simpan perubahan status;
+      :Flash success message: "Status berhasil diperbarui";
+      :Reload detail booking;
+    else (no)
+    endif
+    
+    if (Ingin reply/balas customer?) then (yes)
+      :Input message reply;
+      :Klik "Kirim Reply";
+      :Simpan reply ke log;
+      note right
+        Reply disimpan di log
+        (untuk development selanjutnya
+        bisa kirim email ke customer)
+      end note
+      :Flash success message: "Reply saved";
+      :Kembali ke detail booking;
+    else (no)
+    endif
+    
+    if (Ingin edit booking?) then (yes)
+      :Klik button "Edit";
+      :Buka form edit inquiry;
+      :Update data booking;
+      note right
+        Bisa update:
+        - Produk
+        - Nama, email, phone customer
+        - Quantity
+        - Pesan
+        - Status pembayaran
+      end note
+      :Klik "Update";
+      
+      if (Validasi berhasil?) then (yes)
+        :Simpan perubahan;
+        :Flash success message: "Transaksi berhasil diperbarui";
+        :Redirect ke list inquiries;
+        stop
+      else (no)
+        :Tampilkan validation error;
+        :Tetap di form;
+        stop
+      endif
+    else (no)
+      if (Ingin hapus booking?) then (yes)
+        :Klik button "Hapus";
+        :Tampilkan konfirmasi delete;
+        
+        if (Konfirmasi hapus?) then (yes)
+          :Hapus data inquiry/booking;
+          :Flash success message: "Transaksi berhasil dihapus";
+          :Redirect ke list inquiries;
+          stop
+        else (no)
+          :Batal hapus;
+          :Kembali ke detail;
+          stop
+        endif
+      else (no)
+        :Kembali ke list inquiries;
+        stop
+      endif
+    endif
+    stop
+    
+  else (no)
+    if (Ingin filter booking?) then (yes)
+      :Pilih filter status;
+      note right
+        Filter by status:
+        - paid
+        - unpaid
+        - partial
+        - all
+      end note
+      :Klik "Filter";
+      :Tampilkan hasil filter dengan pagination;
+      stop
+    else (no)
+      if (Ingin export data?) then (yes)
+        :Klik button "Export CSV";
+        :Generate CSV file;
+        note right
+          Export data:
+          - id, product_id, name
+          - email, phone, qty
+          - message, status
+          - created_at
+        end note
+        :Download file CSV;
+        :Filename: inquiries-[timestamp].csv;
+        stop
+      else (no)
+        :Logout atau ke menu lain;
+        stop
+      endif
+    endif
+  endif
+endif
+
+@enduml

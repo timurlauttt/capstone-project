@@ -1,0 +1,162 @@
+@startuml
+title Activity Diagram Sistem Marketplace Bibit Tanaman\n(Admin + Customer Flow)
+
+|Customer|
+start
+:Mengakses website;
+:Tampilkan Landing Page;
+
+|Customer|
+if (Sudah tahu produk?) then (tidak)
+  :Lihat Hero Section & About;
+  :Scroll ke Product Section;
+  :Lihat katalog produk by kategori;
+  
+  if (Ingin lihat detail kategori?) then (ya)
+    :Klik "Lihat Semua";
+    :Tampilkan produk dengan pagination;
+  else (tidak)
+  endif
+else (ya)
+endif
+
+|Customer|
+:Pilih produk yang diminati;
+:Lihat detail produk;
+note right
+  - Nama produk
+  - Kategori
+  - Deskripsi
+  - Harga per unit
+  - Stok tersedia
+  - Gambar produk
+  - Status (available/preorder)
+end note
+
+if (Ingin beli/tanya produk?) then (ya)
+  :Klik button WhatsApp;
+  :Buka WhatsApp dengan template message;
+  
+  |Admin/Farmer|
+  :Terima pesan WhatsApp dari customer;
+  :Balas pertanyaan customer;
+  :Konfirmasi ketersediaan & harga;
+  :Negosiasi & deal;
+  
+  if (Customer setuju beli?) then (ya)
+    :Proses transaksi offline;
+    note right
+      Transaksi dilakukan di luar sistem
+      via WhatsApp/tatap muka/transfer
+      (tidak tercatat di sistem)
+    end note
+    
+    |Customer|
+    :Terima produk;
+    stop
+    
+  else (tidak)
+    |Customer|
+    :Batal transaksi;
+    stop
+  endif
+  
+else (tidak)
+  |Customer|
+  if (Ingin booking/pre-order produk?) then (ya)
+    :Klik menu "Inquiry" atau form booking;
+    :Isi form booking/pre-order;
+    
+    partition "Form Booking/Pre-Order" {
+      :Pilih produk;
+      :Input nama;
+      :Input email;
+      :Input nomor telepon;
+      :Input quantity yang dipesan;
+      :Input pesan/keterangan;
+      :Pilih status pembayaran;
+      note right
+        Status: paid, unpaid, partial
+      end note
+    }
+    
+    :Klik "Submit Booking";
+    
+    if (Validasi berhasil?) then (ya)
+      :Simpan booking ke database;
+      :Tampilkan success message;
+      
+      |Admin/Farmer|
+      :Login ke dashboard;
+      :Klik menu "Inquiries/Booking";
+      :Lihat list booking baru;
+      :Baca detail booking;
+      note right
+        - Produk yang dipesan
+        - Quantity
+        - Nama customer
+        - Kontak
+        - Status pembayaran
+      end note
+      
+      if (Perlu follow up?) then (ya)
+        :Hubungi customer via WhatsApp/email;
+        :Konfirmasi pesanan & pembayaran;
+        :Update status booking;
+      else (tidak)
+      endif
+      
+      if (Perlu edit/hapus booking?) then (ya)
+        :Edit atau hapus data booking;
+        :Simpan perubahan;
+      else (tidak)
+      endif
+      
+      |Customer|
+      :Terima konfirmasi dari admin;
+      :Proses pembayaran & pengiriman offline;
+      stop
+      
+    else (tidak)
+      |Customer|
+      :Tampilkan validation error;
+      :Tetap di form;
+      stop
+    endif
+    
+  else (tidak)
+    |Customer|
+    if (Lihat FAQ?) then (ya)
+      :Scroll ke FAQ Section;
+      :Klik accordion FAQ;
+      :Baca jawaban;
+    else (tidak)
+    endif
+    stop
+  endif
+endif
+
+|#AntiqueWhite|Admin/Farmer|
+floating note right
+  **Admin Activities:**
+  - Login/Logout
+  - Manage Products (CRUD)
+  - Toggle Product Visibility
+  - Manage Inquiries/Booking
+  - Update Booking Status
+  - View Dashboard
+  - Update Profile
+end note
+
+|#LightBlue|Customer|
+floating note left
+  **Customer Activities:**
+  - Browse Products
+  - View Product Details
+  - Contact via WhatsApp
+  - Submit Booking/Pre-Order
+  - Read FAQ
+end note
+
+stop
+@enduml

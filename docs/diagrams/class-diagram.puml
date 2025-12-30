@@ -1,0 +1,86 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam backgroundColor white
+skinparam class {
+  BackgroundColor<<Entity>> LightGreen
+  BorderColor Black
+  ArrowColor Black
+}
+
+' Entity Classes
+class User {
+  +id: int
+  +name: string
+  +email: string
+  +password: string
+  +role: string
+  +created_at: timestamp
+  +updated_at: timestamp
+  --
+  +products()
+}
+
+class Category {
+  +id: int
+  +name: string
+  +slug: string
+  +created_at: timestamp
+  +updated_at: timestamp
+  --
+  +products()
+}
+
+class Product {
+  +id: int
+  +user_id: int
+  +category_id: int
+  +title: string
+  +slug: string
+  +description: text
+  +price: decimal
+  +unit: string
+  +stock: int
+  +status: string
+  +is_visible: boolean
+  +created_at: timestamp
+  +updated_at: timestamp
+  --
+  +user()
+  +category()
+  +images()
+  +inquiries()
+}
+
+class ProductImage {
+  +id: int
+  +product_id: int
+  +path: string
+  +sort_order: int
+  +created_at: timestamp
+  +updated_at: timestamp
+  --
+  +product()
+}
+
+class Inquiry {
+  +id: int
+  +product_id: int
+  +name: string
+  +email: string
+  +phone: string
+  +qty: int
+  +message: text
+  +status: string
+  +created_at: timestamp
+  +updated_at: timestamp
+  --
+  +product()
+}
+
+' Relationships between Entities
+User "1" -- "0..*" Product : "owns (One-to-Many)\nSatu user memiliki banyak produk" >
+Category "1" -- "0..*" Product : "categorizes (One-to-Many)\nSatu kategori memiliki banyak produk" >
+Product "1" -- "0..*" ProductImage : "has (One-to-Many)\nSatu produk memiliki banyak gambar" >
+Product "1" -- "0..*" Inquiry : "receives (One-to-Many)\nSatu produk menerima banyak inquiry" >
+
+@enduml
