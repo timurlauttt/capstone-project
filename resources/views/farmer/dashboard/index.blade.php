@@ -22,7 +22,7 @@
                         <span class="text-lg font-semibold text-gray-800">Tambah Bibit</span>
                     </a>
 
-                    <a href="#"
+                    <a href="{{ route('farmer.inquiries.create') }}"
                         class="bg-orange-200 hover:bg-orange-300 transition p-6 rounded-lg flex items-center justify-center space-x-3">
                         <svg class="w-8 h-8 text-orange-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

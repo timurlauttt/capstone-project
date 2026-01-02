@@ -1,0 +1,66 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam backgroundColor white
+skinparam class {
+  BackgroundColor<<Entity>> LightGreen
+  BorderColor Black
+  ArrowColor Black
+}
+
+' ==========================
+' Entity Definitions
+' ==========================
+
+class Kecamatan <<Entity>> {
+  +id_kecamatan: int <<PK>>
+  +kode_bps: string
+  +nama_kecamatan: string
+  +geom: polygon
+  +luas_km2: float
+  +jml_bangunan: int
+  +dens_bangunan: float
+  +panjang_jalan_km: float
+  +dens_jalan: float
+  +atribut_osmnx_lain: json
+}
+
+class DesaRawanBanjir <<Entity>> {
+  +id_desa: int <<PK>>
+  +id_kecamatan: int <<FK>>
+  +nama_desa: string
+  +lat: float
+  +lon: float
+  +sumber_data: string
+  +keterangan: string
+}
+
+class CuacaHarian <<Entity>> {
+  +id_cuaca: int <<PK>>
+  +id_kecamatan: int <<FK>>
+  +tanggal: date
+  +suhu_rata: float
+  +kelembaban_rata: float
+  +kecepatan_angin: float
+  +arah_angin: string
+  +kondisi_cuaca: string
+  +curah_hujan_mm: float
+}
+
+class RisikoBanjir <<Entity>> {
+  +id_risiko: int <<PK>>
+  +id_kecamatan: int <<FK>>
+  +tanggal_prediksi: date
+  +kelas_risiko: string
+  +skor_risiko: float
+  +versi_model: string
+}
+
+' ==========================
+' Relationships (ERD)
+' ==========================
+
+Kecamatan "1" -- "0..*" DesaRawanBanjir : memiliki >
+Kecamatan "1" -- "0..*" CuacaHarian : memiliki >
+Kecamatan "1" -- "0..*" RisikoBanjir : memiliki >
+
+@enduml
